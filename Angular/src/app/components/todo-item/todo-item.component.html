@@ -1,0 +1,54 @@
+<div class="bg-white border border-gray-200 rounded-lg shadow ml-1 mr-2 mt-2">
+  <div class="container mx-auto px-2 flex flex-row gap-2 justify-between">
+    <div class="basis-1/4 flex justify-center items-center">
+      @if(data.status){
+      <button
+        (click)="onIncomplete(data)"
+        class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5"
+      >
+        Incomplete
+      </button>
+      }@else{
+      <button
+        (click)="onComplete(data)"
+        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-1.5"
+      >
+        Complete
+      </button>
+      }
+    </div>
+    <div class="basis-1/2 flex flex-col px-2">
+      <h2
+        class="break-words text-lg font-semibold"
+        [ngClass]="{ 'line-through': data?.status }"
+      >
+        {{ data?.title }}
+      </h2>
+      <small
+        >Status:
+        {{ data?.status === false ? "Incomplete" : "Completed" }}</small
+      >
+    </div>
+    <div class="basis-1/4 flex justify-center items-center gap-3">
+      <button
+        title="Edit"
+        (click)="onEdit(data)"
+        type="button"
+        class="flex justify-center items-center h-6 w-6 text-center hover:shadow-md hover:rounded focus:outline-none active:scale-95"
+      >
+        <ng-icon
+          name="heroPencilSquare"
+          class="h-5 w-5 text-blue-300"
+        ></ng-icon>
+      </button>
+      <button
+        title="Delete"
+        type="button"
+        (click)="onDelete(data)"
+        class="flex justify-center items-center h-6 w-6 text-center hover:shadow-md hover:rounded focus:outline-none active:scale-95"
+      >
+        <ng-icon name="heroTrash" class="h-5 w-5 text-red-700"></ng-icon>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="container max-w-lg mx-auto">
+  <div class="container mt-4 mb-5">
+    <button
+      (click)="showModal()"
+      class="ml-2 px-5 py-2.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center"
+    >
+      <ng-icon name="heroPlus" class="h-10 w-8 text-white mr-2"></ng-icon>
+      Add Task
+    </button>
+  </div>
+
+  @for (item of dataSource$ | async; track $index) {
+  <div class="grid col gap-2 mx-auto">
+    <app-todo-item
+      [data]="item"
+      (complete)="onCompleteTask($event)"
+      (inComplete)="onIncompleteTask($event)"
+      (edit)="onOpenEdit($event)"
+      (delete)="onDeleteTask($event)"
+    ></app-todo-item>
+  </div>
+  } @if((dataSource$ | async)?.length === 0){
+  <p class="text-center mb-3 text-gray-500">No data</p>
+  }
+  <app-modal
+    #modal
+    [isVisible]="openModal"
+    [modalTitle]="modalTitle"
+    (closeModal)="onCloseModal()"
+  >
+    <app-todo-create
+      [isEdit]="isEditable"
+      [taskEdit]="taskEdit"
+      (add)="onAddTask($event)"
+      (edit)="onEditTask($event)"
+    ></app-todo-create>
+  </app-modal>
+
+  <!-- <app-todo-item
+    [data]="{ id: 1, title: 'example', status: 'completed' }"
+    (complete)="onCompleteTask($event)"
+    (edit)="onEditTask($event)"
+    (delete)="onDeleteTask($event)"
+  ></app-todo-item> -->
+
+  <!--  <app-todo-create (add)="onAddTask($event)"></app-todo-create> -->
+</div>
